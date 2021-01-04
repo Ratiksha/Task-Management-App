@@ -1,0 +1,32 @@
+@import '../variables.scss';
+.header{
+    padding: 8px 10px;
+    margin: 0;
+    position: relative;
+    background: var(--color);
+    color: $white;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    .button-group{
+        position: absolute;
+        top: 7px;
+        right: 10px;
+        button{
+            background-color: transparent;
+            padding: 0;
+        }
+        svg{
+            color: $white;
+            margin: 5px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+    }
+}
+
+.list{
+    list-style-type: none;
+    padding: 20px 8px 20px;
+    border-radius: 2px;
+    min-height: 218px;
+}
