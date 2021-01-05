@@ -35,7 +35,7 @@ export default class Card extends Component{
                 showDeleteForm: false
             });
         }
-        else{
+        else if(formType === 'delete'){
             this.setState({ 
                 showDeleteForm: true,
                 showEditForm: false
@@ -56,17 +56,17 @@ export default class Card extends Component{
     }
 
     render() {
-        const { card, editTask, DeleteTask, listId, onTaskDragStart } = this.props
+        const { card, lists, editTask, DeleteTask, listId, onTaskDragStart } = this.props
         return (
-            <div className="card" draggable="true" id={[card.taskId]} onDragStart={onTaskDragStart} onClick={(event)=> event.stopPropagation()}>
-                {card.taskName}
+            <div className="card" draggable="true" id={[card && card.taskId]} onDragStart={onTaskDragStart} onClick={(event)=> event.stopPropagation()}>
+                {card && card.taskName}
                 <div className="button-group">
-                    <button onClick={() => this.showModal('edit')}><FontAwesomeIcon icon={faPencilAlt}/></button>
-                    <button onClick={() => this.showModal('delete')}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                    <button id="card-edit" onClick={() => this.showModal('edit')}><FontAwesomeIcon icon={faPencilAlt}/></button>
+                    <button id="card-delete" onClick={() => this.showModal('delete')}><FontAwesomeIcon icon={faTrashAlt}/></button>
                 </div>
                 <Modal show={this.state.showModal} handleClose={this.hideModal}>
-                {this.state.showEditForm && <AddTaskForm listId={listId} name={card.taskName} taskId={card.taskId} editTask={editTask} hideModal={this.hideModal}/>}
-                {this.state.showDeleteForm && <DeleteForm listId={listId} name={card.taskName} taskId={card.taskId} DeleteTask={DeleteTask} hideModal={this.hideModal}/>}
+                {this.state.showEditForm && <AddTaskForm lists={lists} listId={listId} name={card && card.taskName} taskId={card && card.taskId} editTask={editTask} hideModal={this.hideModal}/>}
+                {this.state.showDeleteForm && <DeleteForm listId={listId} name={card && card.taskName} taskId={card && card.taskId} DeleteTask={DeleteTask} hideModal={this.hideModal}/>}
                 </Modal>
             </div>
         )

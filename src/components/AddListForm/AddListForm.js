@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getList } from '../../helpers/getLocalStorageData';
 import './AddListForm.scss';
 
 export default class AddListForm extends Component{
@@ -13,12 +12,6 @@ export default class AddListForm extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    componentDidMount () {
-        this.setState({
-            data: getList()
-        })
     }
 
     handleChange = (event) => {
@@ -52,9 +45,9 @@ export default class AddListForm extends Component{
     }
 
     checkDuplicate(name){
-        const { data } = this.state
-        for (var i = 0; i < data.length; i++) {
-            if(name.toUpperCase() === data[i].name.toUpperCase()){
+        const { lists } = this.props
+        for (var i = 0; i < lists && lists.length; i++) {
+            if(name.toUpperCase() === lists[i].name.toUpperCase()){
                 this.setState({
                     errorDuplicate: true
                 })

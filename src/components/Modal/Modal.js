@@ -1,9 +1,6 @@
-
 import React, { Component } from 'react';
 import './Modal.scss'
-
-export default class Card extends Component{
-    
+export default class Modal extends Component{
     render() {
         const { handleClose, show, children } = this.props
         return (

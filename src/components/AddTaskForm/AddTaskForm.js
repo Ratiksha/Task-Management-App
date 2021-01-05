@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getList } from '../../helpers/getLocalStorageData';
 import './AddTaskForm.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -17,12 +16,6 @@ export default class AddTaskForm extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    componentDidMount () {
-        this.setState({
-            data: getList()
-        })
     }
 
     handleChange = (event) => {
@@ -56,10 +49,10 @@ export default class AddTaskForm extends Component{
     }
 
     checkDuplicate = (name) => {
-        const { data } = this.state
-        for (var i = 0; i < data.length; i++) {
-                for (var j = 0; j < data[i].cards.length; j++) {
-                    if(data[i].cards[j].taskName.toUpperCase() === name.toUpperCase()){
+        const { lists } = this.props
+        for (var i = 0; i < lists && lists.length; i++) {
+                for (var j = 0; j < lists[i].cards.length; j++) {
+                    if(lists[i].cards[j].taskName.toUpperCase() === name.toUpperCase()){
                         this.setState({
                             errorDuplicate: true
                         })

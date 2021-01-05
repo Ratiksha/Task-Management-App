@@ -3,7 +3,6 @@ import './TaskBoard.scss';
 import List from '../List/List';
 import Modal from '../Modal/Modal'
 import AddListForm from '../AddListForm/AddListForm'
-import { getList, getThemeColor } from '../../helpers/getLocalStorageData';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
@@ -55,12 +54,14 @@ export default class TaskBoard extends Component{
     }
 
     componentDidMount(){
-        if(localStorage.getItem('lists')){
+        const localStorageData = localStorage.getItem('lists');
+        if(localStorageData){
             this.setState({
-                lists: getList()
+                lists: JSON.parse(localStorageData)
             })
         }
-        document.documentElement.style.setProperty('--color', getThemeColor());
+        const themeColor = localStorage.getItem('themeColor');
+        document.documentElement.style.setProperty('--color', JSON.parse(themeColor));
         document.addEventListener('keydown', this.handleKeyPress);
     }
 
@@ -273,12 +274,12 @@ export default class TaskBoard extends Component{
                             <li className="colors" id="yellow" onClick={()=>this.changeTheme('#f59e01')} tabIndex="0"></li>
                             <li className="colors" id="purple" onClick={()=>this.changeTheme('#540073')} tabIndex="0"></li>
                         </ul>
-                        <button onClick={this.showModal}><FontAwesomeIcon icon={faPlusSquare}/></button>
+                        <button id="add-list" onClick={this.showModal}><FontAwesomeIcon icon={faPlusSquare}/></button>
                     </div>
                     </div>
                 <ul className="lists" id="list">{lists}</ul>
                 <Modal show={this.state.show} handleClose={this.hideModal}>
-                    <AddListForm addList={(name) => this.addList(name)} hideModal={this.hideModal}/>
+                    <AddListForm lists={this.state.lists} addList={(name) => this.addList(name)} hideModal={this.hideModal}/>
                 </Modal>
             </div>
         )

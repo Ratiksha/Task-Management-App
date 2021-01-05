@@ -38,7 +38,7 @@ export default class List extends Component{
                 showDeleteForm: false
             });
         }
-        else{
+        else if(formType === 'delete') {
             this.setState({ 
                 showDeleteForm: true,
                 showEditForm: false
@@ -59,30 +59,30 @@ export default class List extends Component{
     }
 
     render() {
-        const { list, addTask, editTask, DeleteTask, editList, DeleteList, onTaskDragStart, onTaskDragOver, onTaskDrop, onListDragStart  } = this.props;
-        const cards = list.cards.map((card, index) => (
+        const { lists, list, addTask, editTask, DeleteTask, editList, DeleteList, onTaskDragStart, onTaskDragOver, onTaskDrop, onListDragStart  } = this.props;
+        const cards = list && list.cards.map((card, index) => (
             <li key={index}>
-                <Card card={card} editTask={editTask} DeleteTask={DeleteTask} listId={list.listId} onTaskDragStart={onTaskDragStart}/>
+                <Card lists={lists} card={card} editTask={editTask} DeleteTask={DeleteTask} listId={list.listId} onTaskDragStart={onTaskDragStart}/>
             </li>
         ));
 
         return (
-            <div draggable="true" id={[list.listId]} onDragStart={onListDragStart}>
-                <h3 className="header">{list.name}
+            <div draggable="true" id={[ list && list.listId]} onDragStart={onListDragStart}>
+                <h3 className="header">{list && list.name}
                 <div className="button-group">
-                    <button onClick={() => this.showModal('edit')}><FontAwesomeIcon icon={faPencilAlt}/></button>
-                    <button onClick={() => this.showModal('delete')}><FontAwesomeIcon icon={faTrashAlt}/></button>
+                    <button id="list-edit" onClick={() => this.showModal('edit')}><FontAwesomeIcon icon={faPencilAlt}/></button>
+                    <button id="list-delete" onClick={() => this.showModal('delete')}><FontAwesomeIcon icon={faTrashAlt}/></button>
                 </div>
                 </h3>
                 <ul className="list" onDragOver={onTaskDragOver} onDrop={onTaskDrop}>
                     {cards}
                     <li>
-                        <AddTaskForm listId={list.listId} addTask={addTask} hideModal={this.hideModal}/>
+                        <AddTaskForm lists={lists} listId={list && list.listId} addTask={addTask} hideModal={this.hideModal}/>
                     </li>
                 </ul>
                 <Modal show={this.state.showModal} handleClose={this.hideModal}>
-                    {this.state.showEditForm && <AddListForm listId={list.listId} editList={editList} name={list.name} hideModal={this.hideModal}/>}
-                   {this.state.showDeleteForm && <DeleteForm listId={list.listId} DeleteList={DeleteList} name={list.name} hideModal={this.hideModal}/>}
+                    {this.state.showEditForm && <AddListForm lists={lists} listId={list && list.listId} editList={editList} name={list && list.name} hideModal={this.hideModal}/>}
+                   {this.state.showDeleteForm && <DeleteForm listId={list && list.listId} DeleteList={DeleteList} name={list && list.name} hideModal={this.hideModal}/>}
                 </Modal>
             </div>
         )
