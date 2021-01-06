@@ -21,4 +21,5 @@ describe('AddListForm', () => {
     wrapped.find('input[type="text"]').simulate('change', mockedEvent)
     expect(spy).toHaveBeenCalledTimes(1);
   })
+  
 });

@@ -45,8 +45,8 @@ export default class AddListForm extends Component{
     }
 
     checkDuplicate(name){
-        const { lists } = this.props
-        for (var i = 0; i < lists && lists.length; i++) {
+        const lists = this.props.lists ? this.props.lists : ''
+        for (var i = 0; i < lists.length; i++) {
             if(name.toUpperCase() === lists[i].name.toUpperCase()){
                 this.setState({
                     errorDuplicate: true
@@ -62,7 +62,7 @@ export default class AddListForm extends Component{
         const { value, errorRequired, errorDuplicate, disableSubmit } = this.state;
         const { addList, editList, name } = this.props;
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} id="list-form">
                 {addList ? <h3>Add Task List</h3> : <h3>Edit Task List</h3> }
                 <input type="text" defaultValue={name? name : value} onChange={this.handleChange} className={`${errorRequired || errorDuplicate? 'highlight': ''}`} />
                 <input type="submit" value="Submit" className="button green" disabled={editList ? disableSubmit : false} />

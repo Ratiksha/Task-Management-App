@@ -49,8 +49,8 @@ export default class AddTaskForm extends Component{
     }
 
     checkDuplicate = (name) => {
-        const { lists } = this.props
-        for (var i = 0; i < lists && lists.length; i++) {
+        const lists = this.props.lists ? this.props.lists : ''
+        for (var i = 0; i < lists.length; i++) {
                 for (var j = 0; j < lists[i].cards.length; j++) {
                     if(lists[i].cards[j].taskName.toUpperCase() === name.toUpperCase()){
                         this.setState({

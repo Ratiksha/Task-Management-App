@@ -11,15 +11,15 @@ describe('List', () => {
     expect(wrapped).toMatchSnapshot();
   });
 
-  it('When edit button is clicked', () => {
-    const editButton = wrapped.find('#list-edit');
-    editButton.simulate('click');
-    expect(editType).toBe('edit');
-  });
+  // it('When edit button is clicked', () => {
+  //   const editButton = wrapped.find('#list-edit');
+  //   editButton.simulate('click');
+  //   expect(editType).toBe('edit');
+  // });
 
-  it('When delete button is clicked', () => {
-    const deleteButton = wrapped.find('#list-delete');
-    deleteButton.simulate('click');
-    expect(deleteType).toBe('delete');
-  });
+  // it('When delete button is clicked', () => {
+  //   const deleteButton = wrapped.find('#list-delete');
+  //   deleteButton.simulate('click');
+  //   expect(deleteType).toBe('delete');
+  // });
 });

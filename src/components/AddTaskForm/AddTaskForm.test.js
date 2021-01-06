@@ -21,4 +21,11 @@ describe('AddTaskForm', () => {
     wrapped.find('input[type="text"]').simulate('change', mockedEvent)
     expect(spy).toHaveBeenCalledTimes(1);
   })
+
+  it('When cancel button is clicked', () => {
+    let mockFn = jest.fn();
+    wrapped.find('button').simulate('click')
+    mockFn();
+    expect(mockFn).toHaveBeenCalled();
+  })
 });

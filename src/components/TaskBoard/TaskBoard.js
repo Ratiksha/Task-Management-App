@@ -103,14 +103,14 @@ export default class TaskBoard extends Component{
     }
     const taskCard = cardsArray.find(card => card.taskId === parseInt(taskdragInfo.taskId))
     const indexOfCard = cardsArray.findIndex(card => card.taskId === parseInt(taskdragInfo.taskId))
-    for (var i = 0; i < lists.length; i++) {
-        if(parseInt(taskdragInfo.listID) === lists[i].listId){
-            lists[i].cards.splice(indexOfCard, 1)
+    for (var k = 0; k < lists.length; k++) {
+        if(parseInt(taskdragInfo.listID) === lists[k].listId){
+            lists[k].cards.splice(indexOfCard, 1)
         }
     }
-    for (var i = 0; i < lists.length; i++) {
-        if(parseInt(listID) === lists[i].listId){
-            lists[i].cards.push({...taskCard, list: parseInt(listID), taskId: new Date().valueOf() });
+    for (var j = 0; j < lists.length; j++) {
+        if(parseInt(listID) === lists[j].listId){
+            lists[j].cards.push({...taskCard, list: parseInt(listID), taskId: new Date().valueOf() });
         }
     }
     this.setState({
@@ -240,13 +240,13 @@ export default class TaskBoard extends Component{
     
       hideModal = () => {
         this.setState({ show: false });
-        window.location.reload();
       };
 
     render() {
         const lists = this.state.lists.map((list, index) => (
             <li key={index} className="wrapper" onDragOver={(event, listId)=>this.onListDragOver(event, list.listId)} onDrop={(event)=>this.onListDrop(event, list.listId)} tabIndex="0">
                 <List list={list}
+                lists={this.state.lists}
                 addList={(name) => this.addList(name)}
                 editList={(name, listId) => this.editList(name, listId)}
                 DeleteList={(listId) => this.DeleteList(listId)}
@@ -278,7 +278,7 @@ export default class TaskBoard extends Component{
                     </div>
                     </div>
                 <ul className="lists" id="list">{lists}</ul>
-                <Modal show={this.state.show} handleClose={this.hideModal}>
+                <Modal show={this.state.show} handleClose={this.hideModal} id="listModal">
                     <AddListForm lists={this.state.lists} addList={(name) => this.addList(name)} hideModal={this.hideModal}/>
                 </Modal>
             </div>
