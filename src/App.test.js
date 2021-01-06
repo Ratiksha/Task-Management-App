@@ -1,6 +1,7 @@
-import { render } from '@testing-library/react';
-import TaskBoard from './components/TaskBoard/TaskBoard';
+import { shallow } from 'enzyme';
+import App from './App';
 
-test('renders taskBoard', () => {
-  render(<TaskBoard />);
+const wrapper = shallow(<App />);
+it('should render App component', () => {   
+  expect(wrapper).toMatchSnapshot();
 });

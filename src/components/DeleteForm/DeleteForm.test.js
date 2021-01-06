@@ -8,4 +8,11 @@ describe('DeleteForm', () => {
     expect(wrapped).toMatchSnapshot();
   });
 
+  it('When submit button is clicked', () => {
+    let mockFn = jest.fn();
+    wrapped.find('form').simulate('click')
+    mockFn();
+    expect(mockFn).toHaveBeenCalled();
+  })
+
 });
